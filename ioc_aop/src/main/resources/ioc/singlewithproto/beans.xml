@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+	default-autowire="byName">
+	
+	<bean id="protoObject" class="com.alibaba.study.spring.ioc.singlewithpro.ProtoObjectType" scope="prototype" />
+	<!-- 针对单例bean所依赖的非单例bean,这里采用按照名字自动注入 -->
+	<bean id="singleObject1" class="com.alibaba.study.spring.ioc.singlewithpro.SingleObjectType" />
+	
+	<!-- 使用lookup-method来解决单例依赖非单例的情形,这里Spring的自动注入有浪费，这里自动注入的protoType永远没有被使用的机会 -->
+	<bean id="singleObject2" class="com.alibaba.study.spring.ioc.singlewithpro.SingleObjectType">
+		<lookup-method name="getProtoObject" bean="protoObject" />
+	</bean>
+	
+	<!-- 使用BeanFactoryAware来解决单例依赖非单例的情形 -->
+	<bean id="bfaSingleObject" class="com.alibaba.study.spring.ioc.singlewithpro.BfaSingleObjectType" />
+	
+	<!-- 使用ObjectFactoryCreatingFactoryBean来解决单例依赖非单例的情形 -->
+	<bean id="protoObjectBeanFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+		<property name="targetBeanName">
+			<idref bean="protoObject" />
+		</property>
+	</bean>
+	<bean id="ofcfbSingleObject" class="com.alibaba.study.spring.ioc.singlewithpro.OfcfbSingleObjectType">
+		<property name="objectFactory">
+			<ref bean="protoObjectBeanFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 使用replaced-method来解决单例依赖非单例的情形 -->
+	<bean id="rmSingleObject" class="com.alibaba.study.spring.ioc.singlewithpro.RmSingleObjectType">
+		<replaced-method name="getProtoObject" replacer="objectReplacer">
+		</replaced-method>
+	</bean>
+	
+	<bean id="objectReplacer" class="com.alibaba.study.spring.ioc.singlewithpro.ObjectReplacer"/>
+</beans>
