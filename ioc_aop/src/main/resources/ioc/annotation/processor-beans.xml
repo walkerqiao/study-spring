@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+	default-autowire="byName">
+	
+	<!-- 为了使用Autowired标签，我们必须在这里配置一个bean的后置处理器 -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" /> 
+	
+	<!-- 为了使用@Resource标签，这里必须配置一个后置处理器 -->
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" /> 
+	
+	<bean id="memberService" class="com.alibaba.study.spring.ioc.annotation.MemberService" />
+	<bean id="offerDAO" class="com.alibaba.study.spring.ioc.annotation.OfferDAO" />
+	<bean id="memberDAO" class="com.alibaba.study.spring.ioc.annotation.MemberDAO" />
+	<bean id="companyDAO" class="com.alibaba.study.spring.ioc.annotation.CompanyDAO" />
+</beans>
