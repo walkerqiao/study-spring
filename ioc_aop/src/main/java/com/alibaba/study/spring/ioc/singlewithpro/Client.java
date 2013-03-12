@@ -49,5 +49,6 @@ public class Client {
         System.out.println(rmSingleObject1.getProtoObject().getIndex());
         RmSingleObjectType rmSingleObject2 = (RmSingleObjectType) ctx.getBean("rmSingleObject");
         System.out.println(rmSingleObject2.getProtoObject().getIndex());
+        
     }
 }
