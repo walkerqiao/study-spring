@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:co="http://www.mycompany.com/schema/myns"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.mycompany.com/schema/myns http://www.mycompany.com/schema/myns/myns.xsd
+    ">
+    
+    <co:log id="iplatformLog" isPrintTime="true" company="cyberObject" />
+   
+    <bean id="log" class="com.alibaba.study.spring.label.LogBean">
+        <constructor-arg value="true"></constructor-arg>
+        <property name="company" value="cyberObject"></property>
+    </bean>
+</beans>
